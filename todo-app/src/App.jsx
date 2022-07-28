@@ -29,9 +29,15 @@ export const App = () => {
 
   const onClickDone = (index) => {
     setIncompleteTodos(incompleteTodos.filter((todos, i) => i !== index));
-    const newToDos = [...completeTodos, incompleteTodos[index]];
-    setCompleteTodos(newToDos);
+    const newTodos = [...completeTodos, incompleteTodos[index]];
+    setCompleteTodos(newTodos);
     setTodoText("");
+  };
+
+  const onClickBack = (index) => {
+    setCompleteTodos(completeTodos.filter((todos, i) => i !== index));
+    const newTodos = [...incompleteTodos, completeTodos[index]];
+    setIncompleteTodos(newTodos);
   };
 
   return (
@@ -62,11 +68,11 @@ export const App = () => {
       <div className="complete-area">
         <p className="title">完了のTODO</p>
         <ul>
-          {completeTodos.map((todo) => {
+          {completeTodos.map((todo, index) => {
             return (
               <div key={todo} className="list-row">
                 <li>{todo}</li>
-                <button>戻す</button>
+                <button onClick={() => onClickBack(index)}>戻す</button>
               </div>
             );
           })}
