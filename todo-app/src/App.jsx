@@ -3,6 +3,7 @@ import { useState } from "react";
 import "./styles.css";
 import { InputTodo } from "./components/inputTodo";
 import { IncomplteTodos } from "./components/IncompleteTodos";
+import { CompleteTodos } from "./components/CompleteTodos";
 
 export const App = () => {
   const [todoText, setTodoText] = useState("");
@@ -17,7 +18,7 @@ export const App = () => {
     //押された時のtodeTextのstateを確認
     // alert(todoText);
     if (todoText === "") return;
-    //未完了のTODOの配列に追加(今のお内容に加えて)
+    //未完了のTODOの配列に追加(今の内容に加えて)
     const newToDos = [...incompleteTodos, todoText];
     setIncompleteTodos(newToDos);
     setTodoText("");
@@ -52,19 +53,7 @@ export const App = () => {
         onClickDone={onClickDone}
         onClickDelete={onClickDelete}
       />
-      <div className="complete-area">
-        <p className="title">完了のTODO</p>
-        <ul>
-          {completeTodos.map((todo, index) => {
-            return (
-              <div key={todo} className="list-row">
-                <li>{todo}</li>
-                <button onClick={() => onClickBack(index)}>戻す</button>
-              </div>
-            );
-          })}
-        </ul>
-      </div>
+      <CompleteTodos todos={completeTodos} onClickBack={onClickBack} />
     </>
   );
 };
